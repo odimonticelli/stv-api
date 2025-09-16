@@ -22,11 +22,10 @@ $vetpay = $api->payload($token);
 switch($vetpay['role'])
 {
     case 'register':
-        if(isset($vetpay['sub'])) 
+        if(isset($vetpay['sub']) && $vetpay['sub']=='20250901') 
         {
             $now = date('Y-m-d H:i:s');
             $exp = $obj['expo_push_token'];
-            $ipr  = getIp();
             
             //pega os dados
             $idu = $obj['user_id'];
