@@ -13,14 +13,14 @@ include('../config/inc.globals.php');
 
 $json  	= file_get_contents('php://input');
 $obj   	= json_decode($json, true); // var_dump($obj);
-$return = ["ok" => false, "msg" => "Parâmetros inválidos."];
+$return = ["success" => false, "response" => "Parâmetros inválidos."];
 
 $api = new ApiRest();
 $headers = $api->getHeaders();
 $tok = $api->getToken($headers);
-$jwt = $api->payload($tok);
-$jwt = json_encode($jwt);
-die($jwt);
+$vet = $api->payload($tok);
+//$vet = json_encode($jwt);
+showObject($vet);
 
 
 $act = $obj["act"];
