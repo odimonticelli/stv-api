@@ -15,17 +15,10 @@ $json  	= file_get_contents('php://input');
 $obj   	= json_decode($json, true); // var_dump($obj);
 $return = ["ok" => false, "msg" => "Parâmetros inválidos."];
 
-$headers = getallheaders();
-$jwt = null;
-if (isset($headers['Authorization'])) {
-    $authHeader = $headers['Authorization'];
-    // Check if the header starts with "Bearer " and extract the token
-    if (preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
-        $jwt = $matches[1];
-    }
-}
-$txt = MyJwt::payload($jwt);
-die($txt);
+$api = new ApiRest();
+$headers = $api->getHeaders();
+$tok = $api->getToken($headers);
+die($tok);
 
 
 $act = $obj["act"];

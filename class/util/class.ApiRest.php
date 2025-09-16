@@ -188,7 +188,13 @@ class ApiRest
         elseif (isset($headers["authorization"])) {
             $_bearer_token = $headers["authorization"];
         }
-        $token = str_replace('Bearer ','', $_bearer_token);
+        
+        // Check if the header starts with "Bearer " and extract the token
+        if (preg_match('/Bearer\s(\S+)/', $_bearer_token, $matches)) {
+            $token = $matches[1];
+        }
+        //$token = str_replace('Bearer ','', $_bearer_token);
+
         return $token;
     }
 
