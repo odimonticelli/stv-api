@@ -31,11 +31,12 @@ switch($vetpay['role'])
             $idu = $obj['user_id'];
             $cpf = $obj['cpf'];
             $mat = $obj['matricula'];
+            
             $pla = $obj['platform'];
             $dev = $obj['device_info'];
-            $bra = $dev['brand'];
-            $mod = $dev['model'];
-            $sys = $dev['os'];
+                $bra = $dev['brand'];
+                $mod = $dev['model'];
+                $sys = $dev['os'];
 
             //cria objeto para atualizar os dados do usuario
             $objusu = new Stv_usuarios_online();

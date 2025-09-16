@@ -70,6 +70,10 @@ class Stv_usuarios_onlineDAO extends PDO
 		$usuario_registro = $this->dba->quote($obj->getUsuario_registro());
 		$ip_registro = $this->dba->quote($obj->getIp_registro());
 		$token_expo = $this->dba->quote($obj->getToken_expo());
+		$device_plat = $this->dba->quote($obj->getDevice_plat());
+		$device_brand = $this->dba->quote($obj->getDevice_brand());
+		$device_model = $this->dba->quote($obj->getDevice_model());
+		$device_os = $this->dba->quote($obj->getDevice_os());
 		
 		//montar o comando SQL
 		$sql = "insert into stv_usuarios_online 
@@ -107,7 +111,11 @@ class Stv_usuarios_onlineDAO extends PDO
 				data_registro,
 				usuario_registro,
 				ip_registro,
-				token_expo
+				token_expo,
+				device_plat,
+				device_brand,
+				device_model,
+				device_os
 				) 
 				values 
 				(
@@ -144,7 +152,11 @@ class Stv_usuarios_onlineDAO extends PDO
 				$data_registro,
 				$usuario_registro,
 				$ip_registro,
-				$token_expo
+				$token_expo,
+				$device_plat,
+				$device_brand,
+				$device_model,
+				$device_os
 				)";
 				
 		//executar o comando SQL 
@@ -194,6 +206,10 @@ class Stv_usuarios_onlineDAO extends PDO
 		$usuario_registro = $obj->getUsuario_registro();
 		$ip_registro = $obj->getIp_registro();
 		$token_expo = $obj->getToken_expo();
+		$device_plat = $obj->getDevice_plat();
+		$device_brand = $obj->getDevice_brand();
+		$device_model = $obj->getDevice_model();
+		$device_os = $obj->getDevice_os();
 		
         $campos = '';
         if (!empty($codpes) || is_numeric($codpes)) {
@@ -297,6 +313,18 @@ class Stv_usuarios_onlineDAO extends PDO
         }
         if (!empty($token_expo) || is_numeric($token_expo)) {
         	$campos .= "token_expo=".$this->dba->quote($token_expo).", ";
+        }
+        if (!empty($device_plat) || is_numeric($device_plat)) {
+        	$campos .= "device_plat=".$this->dba->quote($device_plat).", ";
+        }
+        if (!empty($device_brand) || is_numeric($device_brand)) {
+        	$campos .= "device_brand=".$this->dba->quote($device_brand).", ";
+        }
+        if (!empty($device_model) || is_numeric($device_model)) {
+        	$campos .= "device_model=".$this->dba->quote($device_model).", ";
+        }
+        if (!empty($device_os) || is_numeric($device_os)) {
+        	$campos .= "device_os=".$this->dba->quote($device_os).", ";
         }
         $campos = substr($campos,0,strrpos($campos,','));
         

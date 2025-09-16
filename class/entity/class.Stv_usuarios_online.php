@@ -59,6 +59,10 @@ class Stv_usuarios_online
 	private $usuario_registro;
 	private $ip_registro;
 	private $token_expo;
+	private $device_plat;
+	private $device_brand;
+	private $device_model;
+	private $device_os;
 	
 	
 	/**
@@ -309,6 +313,34 @@ class Stv_usuarios_online
 	}
 	public function getToken_expo() {
 		return $this->token_expo;
+	}
+	// -- device_plat
+	public function setDevice_plat($device_plat) {
+		$this->device_plat = $device_plat;
+	}
+	public function getDevice_plat() {
+		return $this->device_plat;
+	}
+	// -- device_brand
+	public function setDevice_brand($device_brand) {
+		$this->device_brand = $device_brand;
+	}
+	public function getDevice_brand() {
+		return $this->device_brand;
+	}
+	// -- device_model
+	public function setDevice_model($device_model) {
+		$this->device_model = $device_model;
+	}
+	public function getDevice_model() {
+		return $this->device_model;
+	}
+	// -- device_os
+	public function setDevice_os($device_os) {
+		$this->device_os = $device_os;
+	}
+	public function getDevice_os() {
+		return $this->device_os;
 	}
 	
 } 
