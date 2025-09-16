@@ -14,6 +14,7 @@ include('../config/inc.globals.php');
 $json  	= file_get_contents('php://input');
 $obj   	= json_decode($json, true); // var_dump($obj);
 $return = ["ok" => false, "msg" => "Parâmetros inválidos."];
+
 $headers = getallheaders();
 $jwt = null;
 if (isset($headers['Authorization'])) {
@@ -23,7 +24,8 @@ if (isset($headers['Authorization'])) {
         $jwt = $matches[1];
     }
 }
-showObject($jwt);
+$txt = ApiRest::payload($jwt);
+die($txt);
 
 
 $act = $obj["act"];
