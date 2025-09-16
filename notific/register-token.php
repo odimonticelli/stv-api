@@ -17,19 +17,20 @@ $return = ["success" => false, "response" => "Parâmetros inválidos."];
 
 $api = new ApiRest();
 $headers = $api->getHeaders();
-$tok = $api->getToken($headers);
-$vet = $api->payload($tok);
-//$vet = json_encode($jwt);
-showObject($vet);
+$token = $api->getToken($headers);
+$vetpay = $api->payload($token);
+
+$payload = $api->encode(array("sub"=>"123", "cpf"=>"123.123.123-12", "role"=>"register"), 'https://odix.com.br/stv-api-secret');
+print_r($payload); exit;
 
 
-$act = $obj["act"];
-switch($act)
+switch($vetpay['role'])
 {
-    case 'insert':
-        if(isset($obj["id_usuario"])) {
+    case 'register':
+        if(isset($vetpay['sub'])) 
+        {
             $now = date('Y-m-d H:i:s');
-            $idu = $obj["id_usuario"];
+            $idu = $vetpay['sub'];
 
             //pega os dados
             $cpf = $obj['cpf'];
