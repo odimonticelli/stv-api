@@ -19,111 +19,41 @@ $api = new ApiRest();
 $headers = $api->getHeaders();
 $token = $api->getToken($headers);
 $vetpay = $api->payload($token);
-
-// $payload = $api->encode(array("sub"=>"123", "cpf"=>"123.123.123-12", "role"=>"register"), 'https://odix.com.br/stv-api-secret');
-print_r($vetpay); exit;
-
-
 switch($vetpay['role'])
 {
     case 'register':
         if(isset($vetpay['sub'])) 
         {
             $now = date('Y-m-d H:i:s');
-            $idu = $vetpay['sub'];
-
-            //pega os dados
-            $cpf = $obj['cpf'];
-            $ass = $obj['assunto'];
-            $cat = $obj['categoria'];
-            $tel = $obj['telefone'];
-            $msg = $obj['mensagem'];
-            $anx = $obj['anexo'];
-            
-            //faz os ajustes e testes
-            if (empty($cat)) { $return = array("ok" => false, "msg" => "categoria"); break; }
-            if (empty($ass)) { $return = array("ok" => false, "msg" => "assunto"); break; }
-            if (empty($msg)) { $return = array("ok" => false, "msg" => "mensagem"); break; } 
-
-            //ip de cadastro
+            $exp = $obj['expo_push_token'];
             $ipr  = getIp();
-            $sqlins = "INSERT INTO stv_chamados 
-                        (assunto, mensagem, id_categoria, telefone, id_usuario, status, data_registro, ip_registro) 
-                        VALUES 
-                        ('$ass', '$msg', $cat, '$tel', '$idu', 1, '$now', '$ipr')"; //die($sqlins);
-            $resins = $dba->query($sqlins);
-            $idc = $dba->lastId();
             
-            $anexo = "";
-            // Verifica se foi enviado algum arquivo
-            if (!empty($anx)) {  
-                $type = explode('/', mime_content_type($anx))[1];
-                if (in_array($type, ['exe'])) { 
-                    $return = array("ok" => false, "msg" => "Tipo de anexo invalido"); break;
-                } 
-                // Decodifica a string Base64 em dados binários
-                $data = substr($anx, strpos($anx, ',') + 1); 
-                $data = base64_decode($data); 
-                // Verifica se a decodificação foi bem-sucedida
-                if ($data === false) { 
-                    $return = array("ok" => false, "msg" => "Falha ao decodificar anexo"); break;
-                } 
-                // Verificar diretorio
-                $diretorio_upload = "../../files/chamados/".date("Y")."-".date("m")."-".date("d")."/";
-                if(!is_dir($diretorio_upload)) { 
-                    mkdir($diretorio_upload, 0775, true); 
-                    chmod($diretorio_upload, 0775);
-                }
-                $arquivo = $idc.'.'.$type;
-                // Salva a imagem decodificada no caminho especificado
-                file_put_contents($diretorio_upload.$arquivo, $data);
-                // Caminho do arquivo anexo
-                $anexo = str_replace("../../", "", $diretorio_upload).$arquivo; 
-                $sqlupd = "update stv_chamados set anexo = '$anexo' where id = '$idc' ";
-                $dba->query($sqlupd);
-            }
+            //pega os dados
+            $idu = $obj['user_id'];
+            $cpf = $obj['cpf'];
+            $mat = $obj['matricula'];
+            $pla = $obj['platform'];
+            $dev = $obj['device_info'];
+            $bra = $dev['brand'];
+            $mod = $dev['model'];
+            $sys = $dev['os'];
 
-            if ($resins) {
-                //retorno com o chamado que acabou de inserir
-                $chamados = array();
-                $sql = "SELECT * 
-                        from stv_chamados
-                        where id = '$idc'";
-                $query = $dba->query($sql);
-                $qntd  = $dba->rows($query); 
-                if ($qntd > 0) {
-                    for($a=0; $a<$qntd; $a++) {
-                        $vet = $dba->fetch($query);
-                        $chamados[] = $vet;
-                    }
-                    $return = array("ok" => true, "msg" => $chamados);
-                    //busca o responsavel da unidade para enviar email
-                    $sqluni = "select uni.*
-                                from stv_usuarios_online usu 
-                                inner join stv_unidade uni on uni.id = usu.unidade
-                                where usu.id = '$idu' ";
-                    $resuni = $dba->query($sqluni);
-                    $qtduni = $dba->rows($resuni);
-                    if ($qtduni > 0) {
-                        $vetuni = $dba->fetch($resuni);
-                        $emauni = $vetuni['email1'];
-                    } else {
-                        $emauni = 'mariane.week@stv.com.br';
-                    }
-                    $destino = $emauni; //'odi@dedstudio.com.br';
-                    $assunto = '[STV] Abertura de Chamado - #'.$idc;
-                    $mensagem = "Foi aberto um chamado através do Aplicativo STV ELO. <br> <h3>Chamado: $idc</h3> Acesse a área administrativa do sistema para visualizar e interagir com o usuário solicitante. ";
-                    $ok = sendMail($destino, $assunto, $mensagem);
-                } 
-                else {
-                    $return = array("ok" => false, "msg" => "Nenhum chamado encontrado!");
-                }
+            //cria objeto para atualizar os dados do usuario
+            $objusu = new Stv_usuarios_online();
+            $objusu->setId($idu);
+            
+            //objeto para atualizar
+            $objdao = new Stv_usuarios_onlineDAO();
+            $resusu = $objdao->update($objusu);
+            if ($resusu) {
+                $return = ["success" => true, "response" => "Token do usuario atualizado com sucesso"];
             }
             else {
-                $return = array("ok" => false, "msg" => "Falha ao gravar o chamado!");
+                $return = ["success" => false, "response" => "Falha ao atualizar o token do usuario"];
             }
         }
     break;
+
 
 
     case 'select': 
