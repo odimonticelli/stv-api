@@ -18,7 +18,8 @@ $return = ["ok" => false, "msg" => "Parâmetros inválidos."];
 $api = new ApiRest();
 $headers = $api->getHeaders();
 $tok = $api->getToken($headers);
-die($tok);
+$jwt = $api->payload($tok);
+die($jwt);
 
 
 $act = $obj["act"];
