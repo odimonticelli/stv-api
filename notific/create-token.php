@@ -12,16 +12,11 @@ include('../config/inc.autoload.php');
 include('../config/inc.globals.php');
 
 $api = new ApiRest();
-
 $payload_register = $api->encode(array("sub"=>"20250901", "role"=>"register"), 'https://odix.com.br/stv-api-secret');
-echo 'Register: <br>';
-echo ($payload_register); 
-echo '<br><br>';
-
 $payload_settings = $api->encode(array("sub"=>"20250901", "role"=>"settings"), 'https://odix.com.br/stv-api-secret');
-echo 'Settings: <br>';
-echo ($payload_settings); 
-echo '<br><br>';
 
+$vetor = array('Register'=>$payload_register, 'Settings'=>$payload_settings);
+$json = json_encode($vetor);
+print_r($json);
 
 ?>
