@@ -41,7 +41,7 @@ switch($vetpay['role'])
             //cria objeto para atualizar os dados do usuario
             $objusu = new Stv_usuarios_online();
             $objusu->setId($idu);
-            $objusu->setExpo_token($exp);
+            $objusu->setToken_expo($exp);
             $objusu->setDevice_plat($pla);
             $objusu->setDevice_brand($bra);
             $objusu->setDevice_model($mod);
