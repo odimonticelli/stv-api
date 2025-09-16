@@ -20,8 +20,8 @@ $headers = $api->getHeaders();
 $token = $api->getToken($headers);
 $vetpay = $api->payload($token);
 
-$payload = $api->encode(array("sub"=>"123", "cpf"=>"123.123.123-12", "role"=>"register"), 'https://odix.com.br/stv-api-secret');
-print_r($payload); exit;
+// $payload = $api->encode(array("sub"=>"123", "cpf"=>"123.123.123-12", "role"=>"register"), 'https://odix.com.br/stv-api-secret');
+print_r($vetpay); exit;
 
 
 switch($vetpay['role'])
