@@ -24,7 +24,8 @@ if (isset($headers['Authorization'])) {
         $jwt = $matches[1];
     }
 }
-$txt = ApiRest::payload($jwt);
+$api = new ApiRest();
+$txt = $api->payload($jwt);
 die($txt);
 
 
