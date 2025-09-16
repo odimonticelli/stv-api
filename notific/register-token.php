@@ -19,6 +19,7 @@ $api = new ApiRest();
 $headers = $api->getHeaders();
 $tok = $api->getToken($headers);
 $jwt = $api->payload($tok);
+$jwt = json_encode($jwt);
 die($jwt);
 
 
