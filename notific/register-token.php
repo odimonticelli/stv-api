@@ -30,7 +30,6 @@ switch($vetpay['role'])
             //pega os dados
             $idu = $obj['user_id'];
             $cpf = $obj['cpf'];
-            $mat = $obj['matricula'];
             
             $pla = $obj['platform'];
             $dev = $obj['device_info'];
@@ -46,6 +45,7 @@ switch($vetpay['role'])
             $objusu->setDevice_brand($bra);
             $objusu->setDevice_model($mod);
             $objusu->setDevice_os($sys);
+            $objusu->setData_atualiza($now);
             
             //objeto para atualizar
             $objdao = new Stv_usuarios_onlineDAO();
