@@ -70,10 +70,12 @@ class Stv_usuarios_onlineDAO extends PDO
 		$usuario_registro = $this->dba->quote($obj->getUsuario_registro());
 		$ip_registro = $this->dba->quote($obj->getIp_registro());
 		$token_expo = $this->dba->quote($obj->getToken_expo());
+		$token_ativo = $this->dba->quote($obj->getToken_ativo());
 		$device_plat = $this->dba->quote($obj->getDevice_plat());
 		$device_brand = $this->dba->quote($obj->getDevice_brand());
 		$device_model = $this->dba->quote($obj->getDevice_model());
 		$device_os = $this->dba->quote($obj->getDevice_os());
+		$push_tipo = $this->dba->quote($obj->getPush_tipo());
 		
 		//montar o comando SQL
 		$sql = "insert into stv_usuarios_online 
@@ -112,10 +114,12 @@ class Stv_usuarios_onlineDAO extends PDO
 				usuario_registro,
 				ip_registro,
 				token_expo,
+				token_ativo,
 				device_plat,
 				device_brand,
 				device_model,
-				device_os
+				device_os,
+				push_tipo
 				) 
 				values 
 				(
@@ -153,10 +157,12 @@ class Stv_usuarios_onlineDAO extends PDO
 				$usuario_registro,
 				$ip_registro,
 				$token_expo,
+				$token_ativo,
 				$device_plat,
 				$device_brand,
 				$device_model,
-				$device_os
+				$device_os,
+				$push_tipo
 				)";
 				
 		//executar o comando SQL 
@@ -206,10 +212,12 @@ class Stv_usuarios_onlineDAO extends PDO
 		$usuario_registro = $obj->getUsuario_registro();
 		$ip_registro = $obj->getIp_registro();
 		$token_expo = $obj->getToken_expo();
+		$token_ativo = $obj->getToken_ativo();
 		$device_plat = $obj->getDevice_plat();
 		$device_brand = $obj->getDevice_brand();
 		$device_model = $obj->getDevice_model();
 		$device_os = $obj->getDevice_os();
+		$push_tipo = $obj->getPush_tipo();
 		
         $campos = '';
         if (!empty($codpes) || is_numeric($codpes)) {
@@ -314,6 +322,9 @@ class Stv_usuarios_onlineDAO extends PDO
         if (!empty($token_expo) || is_numeric($token_expo)) {
         	$campos .= "token_expo=".$this->dba->quote($token_expo).", ";
         }
+        if (!empty($token_ativo) || is_numeric($token_ativo)) {
+        	$campos .= "token_ativo=".$this->dba->quote($token_ativo).", ";
+        }
         if (!empty($device_plat) || is_numeric($device_plat)) {
         	$campos .= "device_plat=".$this->dba->quote($device_plat).", ";
         }
@@ -325,6 +336,9 @@ class Stv_usuarios_onlineDAO extends PDO
         }
         if (!empty($device_os) || is_numeric($device_os)) {
         	$campos .= "device_os=".$this->dba->quote($device_os).", ";
+        }
+        if (!empty($push_tipo) || is_numeric($push_tipo)) {
+        	$campos .= "push_tipo=".$this->dba->quote($push_tipo).", ";
         }
         $campos = substr($campos,0,strrpos($campos,','));
         
