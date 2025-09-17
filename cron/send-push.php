@@ -65,6 +65,8 @@ if ($authorization)
                     $head = array('Content-Type: application/json','Content-Length: '.strlen($body));
                     $resapi = $api->get($body, $head); 
                     $vetapi = json_decode($resapi, true);
+                    //teste de retorno
+                    $return = ["success" => true, "response" => $vetapi ];
 
                     //cria objeto para atualizar os dados do usuario
                     $objusu = new Stv_usuarios_online();
