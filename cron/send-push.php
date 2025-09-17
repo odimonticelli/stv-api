@@ -53,8 +53,7 @@ if ($authorization)
                 $tit = $vetpus['titulo'];
                 $txt = $vetpus['texto'];
                 $dth = $vetpus['data_hora_agendamento'];
-                $dat = datetime_date_ptbr($dth);
-                print_r($vetpus);
+                $dat = datetime_date($dth);
                 if ($dat == $now || $dat == '0000-00-00') {
                     //envia para a api do expo e obtem o resultado
                     $itnenv['to'] = $exp;
