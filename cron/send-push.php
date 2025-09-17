@@ -31,16 +31,23 @@ if ($authorization)
     switch($method)
     {
         case 'GET': 
+            $daousu = new Stv_usuarios_onlineDAO();
+            $daopus = new Stv_push_notificationDAO();
+
             //busca as push cadastradas no banco e os usuarios para envio
             //somente as que ainda não foram enviadas, onde a data de envio seja hoje
             $now = date('Y-m-d');
-            $sqlpus = "status = 1";
-            $daopus = new Stv_push_notificationDAO();
-            $respus = $daopus->select($sqlpus);
+            $sqlpus = "select pus.*, pnu.id_usuario, usu.expo_token
+                        from stv_push_notification pus 
+                        inner join stv_push_notification_usuarios pnu on pnu.id_push_notification = pus.id
+                        inner join stv_usuarios_online usu on usu.id = pnu.id_usuario
+                        where pus.status = 1";
+            $respus = $daopus->execSql($sqlpus);
             //monta os blocos de 100 em 100 
             $jsnenv = array();
             foreach ($respus as $vetpus) {
                 $idp = $vetpus['id'];
+                $idu = $vetpus['id_usuario'];
                 $exp = $vetpus['expo_token'];
                 $cam = $vetpus['campanha'];
                 $tit = $vetpus['titulo'];
@@ -65,8 +72,7 @@ if ($authorization)
                     $objusu->setToken_expo($exp);
                     $objusu->setData_atualiza($now);
                     
-                    //objeto para atualizar
-                    $daousu = new Stv_usuarios_onlineDAO();
+                    //atualizar
                     //$resusu = $daousu->update($objusu);
                     if ($resusu) {
                         $return = ["success" => true, "response" => "ok" ];
