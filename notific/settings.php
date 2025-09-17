@@ -36,7 +36,7 @@ if ($authorization)
 
             //busca no banco
             $daousu = new Stv_usuarios_onlineDAO();
-            $sqlusu = "id = '$idu'";
+            $sqlusu = "id = '$idu'"; die($sqlusu);
             $resusu = $daousu->select();
             $return = array();
             if (isset($resusu[0]) && isset($resusu[0]['push_tipo']) ) {
