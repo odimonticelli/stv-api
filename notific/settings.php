@@ -19,6 +19,8 @@ $api = new ApiRest();
 
 print_r($json);
 print_r($api);
+print_r($_POST);
+print_r($_PUT);
 exit;
 
 $met = $api->getMethod();
