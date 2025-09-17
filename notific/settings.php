@@ -21,12 +21,12 @@ $method = $api->getMethod();
 
 $authorization = false;
 if ($method == 'GET') 
-    $autorization = true;
+    $authorization = true;
 elseif (isset($vetpay['role']) && $vetpay['role']=='settings' && isset($vetpay['sub']) && $vetpay['sub']=='20250901') 
     $authorization = true; 
 
 
-if ($autorization) 
+if ($authorization) 
 {
     switch($method)
     {
