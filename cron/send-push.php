@@ -37,11 +37,11 @@ if ($authorization)
             //busca as push cadastradas no banco e os usuarios para envio
             //somente as que ainda não foram enviadas, onde a data de envio seja hoje
             $now = date('Y-m-d');
-            $sqlpus = "select pus.*, pnu.id_usuario, usu.expo_token
+            $sqlpus = "select pus.*, pnu.id_usuario, usu.token_expo
                         from stv_push_notification pus 
                         inner join stv_push_notification_usuarios pnu on pnu.id_push_notification = pus.id
                         inner join stv_usuarios_online usu on usu.id = pnu.id_usuario
-                        where pus.status = 1";
+                        where pus.status = 1 and usu.token_ativo = 1";
             $respus = $daopus->execSql($sqlpus);
             //monta os blocos de 100 em 100 
             $jsnenv = array();
