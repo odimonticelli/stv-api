@@ -17,12 +17,17 @@ $api = new ApiRest();
 $headers = $api->getHeaders();
 $token = $api->getToken($headers);
 $vetpay = $api->payload($token);
+$method = $api->getMethod();
 
-if( isset($vetpay['role']) && $vetpay['role']=='settings' && 
-    isset($vetpay['sub']) && $vetpay['sub']=='20250901') 
+$authorization = false;
+if ($method == 'GET') 
+    $autorization = true;
+elseif (isset($vetpay['role']) && $vetpay['role']=='settings' && isset($vetpay['sub']) && $vetpay['sub']=='20250901') 
+    $authorization = true; 
+
+
+if ($autorization) 
 {
-    $method = $api->getMethod();
-
     switch($method)
     {
         case 'GET': 
@@ -32,7 +37,7 @@ if( isset($vetpay['role']) && $vetpay['role']=='settings' &&
             $return = ["success" => true, "response" => array()];
         break;
 
-        
+
 
         case 'PUT':
             $obj = json_decode($api->getPut(), true); 
