@@ -31,16 +31,16 @@ switch($vetpay['role'])
             $avi = $obj['avisos_enabled'];
             $cha = $obj['chamados_enabled'];
             $doc = $obj['docs_enabled'];
-            $nov = $dev['novidades_enabled'];
-            $pro = $dev['promos_enabled'];
+            $nov = $obj['novidades_enabled'];
+            $pro = $obj['promos_enabled'];
 
             //monta os valores separados por vírgula para gravar na tabela
             $tip = '';
-            if ($avi) $tip .= $avi . ',';
-            if ($cha) $tip .= $cha . ',';
-            if ($doc) $tip .= $doc . ',';
-            if ($nov) $tip .= $nov . ',';
-            if ($pro) $tip .= $pro . ',';
+            if ($avi) $tip .= 'avisos,';
+            if ($cha) $tip .= 'chamados,';
+            if ($doc) $tip .= 'docs,';
+            if ($nov) $tip .= 'novidades,';
+            if ($pro) $tip .= 'promos,';
             $tip = substr($tip, 0, strlen($tip)-1);
 
             //cria objeto para atualizar os dados do usuario
