@@ -19,8 +19,10 @@ class ApiRest
 
     private $headers;
 
-	private $_DELETE = array(); 
-	private $_PUT = array();
+	private $_GET = array(); 
+    private $_POST = array(); 
+    private $_PUT = array();
+    private $_DELETE = array(); 
 
     /**
      * metodo clone do tipo privado previne a clonagem dessa instância da classe
@@ -129,6 +131,7 @@ class ApiRest
 		//direto pelo $_GET
 		if (!strcasecmp($_SERVER['REQUEST_METHOD'], 'GET')) {
 			//parse_str(file_get_contents('php://input'), $_GET);
+            $this->_GET = file_get_contents('php://input');
 			$this->method = 'GET';
 		}
 
@@ -136,7 +139,7 @@ class ApiRest
 		//direto pelo $_POST
 		if (!strcasecmp($_SERVER['REQUEST_METHOD'], 'POST')) {
 			//parse_str(file_get_contents('php://input'), $_POST);
-			$_POST = file_get_contents('php://input');
+			$this->_POST = file_get_contents('php://input');
 			$this->method = 'POST';
 		}
 
