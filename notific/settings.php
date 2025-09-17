@@ -19,22 +19,34 @@ $token = $api->getToken($headers);
 $vetpay = $api->payload($token);
 $method = $api->getMethod();
 
+// -- ----------------------------------------------------
 $authorization = false;
 if ($method == 'GET') 
     $authorization = true;
 elseif (isset($vetpay['role']) && $vetpay['role']=='settings' && isset($vetpay['sub']) && $vetpay['sub']=='20250901') 
     $authorization = true; 
-
-
+// -- ----------------------------------------------------
 if ($authorization) 
 {
     switch($method)
     {
         case 'GET': 
             $obj = $api->getGet(); 
+            $idu = $obj['user_id'];
+
             //busca no banco
+            $daousu = new Stv_usuarios_onlineDAO();
+            $sqlusu = "id = '$idu'";
+            $resusu = $daousu->select();
+            $return = array();
+            if (isset($resusu[0]) && isset($resusu[0]['push_tipo']) ) {
+                $tip = $resusu[0]['push_tipo'];
+                $vet = explode(',' , $tip);
+                $return[0] = $tip;
+            }
+
             //monta o json de retorno
-            $return = ["success" => true, "response" => $obj];
+            $return = ["success" => true, "response" => $return];
         break;
 
 

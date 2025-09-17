@@ -11,19 +11,26 @@ header('X-Content-Type-Options: nosniff');
 include('../config/inc.autoload.php');
 include('../config/inc.globals.php');
 
-$json  	= file_get_contents('php://input');
-$obj   	= json_decode($json, true); // var_dump($obj);
 $return = ["success" => false, "response" => "Parâmetros inválidos."];
 
 $api = new ApiRest();
 $headers = $api->getHeaders();
 $token = $api->getToken($headers);
 $vetpay = $api->payload($token);
-switch($vetpay['role'])
+$method = $api->getMethod();
+
+// -- ----------------------------------------------------
+$authorization = false;
+if ($method == 'GET') 
+    $authorization = true;
+elseif (isset($vetpay['role']) && $vetpay['role']=='settings' && isset($vetpay['sub']) && $vetpay['sub']=='20250901') 
+    $authorization = true; 
+// -- ----------------------------------------------------
+if ($authorization) 
 {
-    case 'register':
-        if(isset($vetpay['sub']) && $vetpay['sub']=='20250901') 
-        {
+    switch($method)
+    {
+        case 'POST': 
             $now = date('Y-m-d H:i:s');
             $exp = $obj['expo_push_token'];
             
@@ -56,8 +63,8 @@ switch($vetpay['role'])
             else {
                 $return = ["success" => false, "response" => "Falha ao atualizar o token do usuario"];
             }
-        }
-    break;
+        break;
+    }
 }
 
 header('Content-Type: application/json');
