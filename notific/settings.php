@@ -25,7 +25,6 @@ switch($vetpay['role'])
         if(isset($vetpay['sub']) && $vetpay['sub']=='20250901') 
         {
             $now = date('Y-m-d H:i:s');
-            showObject($obj);
 
             //pega os dados
             $idu = $obj['user_id'];
