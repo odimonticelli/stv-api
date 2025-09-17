@@ -31,10 +31,10 @@ if ($authorization)
     switch($method)
     {
         case 'GET': 
-            $obj = json_decode($api->getGet(), true); 
+            $obj = $api->getGet(); 
             //busca no banco
             //monta o json de retorno
-            $return = ["success" => true, "response" => array()];
+            $return = ["success" => true, "response" => $obj];
         break;
 
 
