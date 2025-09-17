@@ -75,13 +75,13 @@ if ($authorization)
                     $objusu->setData_atualiza($now);
                     
                     //atualizar
-                    //$resusu = $daousu->update($objusu);
-                    if ($resusu) {
-                        $return = ["success" => true, "response" => "ok" ];
-                    }
-                    else {
-                        $return = ["success" => false, "response" => "Falha"];
-                    }
+                    // $resusu = $daousu->update($objusu);
+                    // if ($resusu) {
+                    //     $return = ["success" => true, "response" => "ok" ];
+                    // }
+                    // else {
+                    //     $return = ["success" => false, "response" => "Falha"];
+                    // }
                 }
             }
         break;
