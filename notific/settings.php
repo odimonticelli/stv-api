@@ -36,7 +36,7 @@ if ($authorization)
 
             //busca no banco
             $daousu = new Stv_usuarios_onlineDAO();
-            $sqlusu = "id = '$idu'"; die($sqlusu);
+            $sqlusu = "id = '$idu'"; 
             $resusu = $daousu->select();
             $return = array();
             if (isset($resusu[0]) && isset($resusu[0]['push_tipo']) ) {
@@ -46,7 +46,7 @@ if ($authorization)
             }
 
             //monta o json de retorno
-            $return = ["success" => true, "response" => $return];
+            $return = ["success" => true, "response" => $resusu];
         break;
 
 
