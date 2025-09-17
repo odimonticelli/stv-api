@@ -387,7 +387,7 @@ class ApiRest
             $header_payload = $token[0] . '.' . $token[1];
         }
         else {
-            $payload = '';
+            $payload = "{}";
         }
         return json_decode($payload, true);
     }
