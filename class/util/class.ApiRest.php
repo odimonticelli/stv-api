@@ -380,7 +380,7 @@ class ApiRest
     public function payload(string $token): array
     {
         $token = explode('.', $token);
-        if (is_array($token)) {
+        if (is_array($token) && count($token) == 3) {
             $header = $this->base64_decode_url($token[0]);
             $payload = $this->base64_decode_url($token[1]);
             $signature = $this->base64_decode_url($token[2]);
