@@ -380,10 +380,15 @@ class ApiRest
     public function payload(string $token): array
     {
         $token = explode('.', $token);
-        $header = $this->base64_decode_url($token[0]);
-        $payload = $this->base64_decode_url($token[1]);
-        $signature = $this->base64_decode_url($token[2]);
-        $header_payload = $token[0] . '.' . $token[1];
+        if (is_array($token)) {
+            $header = $this->base64_decode_url($token[0]);
+            $payload = $this->base64_decode_url($token[1]);
+            $signature = $this->base64_decode_url($token[2]);
+            $header_payload = $token[0] . '.' . $token[1];
+        }
+        else {
+            $payload = '';
+        }
         return json_decode($payload, true);
     }
 
