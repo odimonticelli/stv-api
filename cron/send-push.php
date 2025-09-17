@@ -48,7 +48,7 @@ if ($authorization)
             foreach ($respus as $vetpus) {
                 $idp = $vetpus['id'];
                 $idu = $vetpus['id_usuario'];
-                $exp = $vetpus['expo_token'];
+                $exp = $vetpus['token_expo'];
                 $cam = $vetpus['campanha'];
                 $tit = $vetpus['titulo'];
                 $txt = $vetpus['texto'];
