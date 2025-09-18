@@ -31,13 +31,13 @@ if ($authorization)
     switch($method)
     {
         case 'POST': 
+            $obj = $api->getPost(); 
+
+            //pega os dados
             $now = date('Y-m-d H:i:s');
             $exp = $obj['expo_push_token'];
-            
-            //pega os dados
             $idu = $obj['user_id'];
             $cpf = $obj['cpf'];
-            
             $pla = $obj['platform'];
             $dev = $obj['device_info'];
                 $bra = $dev['brand'];
