@@ -66,23 +66,30 @@ if ($authorization)
                     $resapi = $api->post($body, $head); 
                     $vetapi = json_decode($resapi, true);
                     
-                    //teste de retorno
-                    $return = ["success" => true, "response" => $vetapi ];
+                    //verifica se o retorno deu "ok"
+                    $retorno = json_decode($vetapi['data']);
+                    print_r($retorno); exit;
+                    if ($vetapi['success']) {
+                        $return = ["success" => true, "response" => $vetapi ];
 
-                    //cria objeto para atualizar os dados do usuario
-                    $objusu = new Stv_usuarios_online();
-                    $objusu->setId($idu);
-                    $objusu->setToken_expo($exp);
-                    $objusu->setData_atualiza($now);
-                    
-                    //atualizar
-                    // $resusu = $daousu->update($objusu);
-                    // if ($resusu) {
-                    //     $return = ["success" => true, "response" => "ok" ];
-                    // }
-                    // else {
-                    //     $return = ["success" => false, "response" => "Falha"];
-                    // }
+                        //cria objeto para atualizar os dados do usuario
+                        $objusu = new Stv_usuarios_online();
+                        $objusu->setId($idu);
+                        $objusu->setToken_expo($exp);
+                        $objusu->setData_atualiza($now);
+                        
+                        //atualizar
+                        // $resusu = $daousu->update($objusu);
+                        // if ($resusu) {
+                        //     $return = ["success" => true, "response" => "ok" ];
+                        // }
+                        // else {
+                        //     $return = ["success" => false, "response" => "Falha"];
+                        // }
+                    }
+                    else {
+                        $return = ["success" => false, "response" => 'Falha de envio com o Expo'];
+                    }
                 }
             }
         break;
