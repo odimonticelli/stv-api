@@ -63,11 +63,10 @@ if ($authorization)
                     $jsnenv[] = $itnenv;
                     $body = json_encode($jsnenv);
                     $head = array('Content-Type: application/json','Content-Length: '.strlen($body));
-                    $resapi = $api->get($body, $head); 
+                    $resapi = $api->post($body, $head); 
                     $vetapi = json_decode($resapi, true);
                     
                     //teste de retorno
-                    print_r($body);
                     $return = ["success" => true, "response" => $resapi ];
 
                     //cria objeto para atualizar os dados do usuario
