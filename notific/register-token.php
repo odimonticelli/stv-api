@@ -64,6 +64,13 @@ if ($authorization)
                 $return = ["success" => false, "response" => "Falha ao atualizar o token do usuario"];
             }
         break;
+
+
+        case 'GET':
+        case 'PUT':
+        case 'DELETE':
+            $return = ["success" => false, "response" => "Método de envio não suportado - apenas POST"];
+        break;
     }
 }
 else 
