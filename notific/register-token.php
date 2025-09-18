@@ -23,7 +23,7 @@ $method = $api->getMethod();
 $authorization = false;
 if ($method == 'GET') 
     $authorization = true;
-elseif (isset($vetpay['role']) && $vetpay['role']=='settings' && isset($vetpay['sub']) && $vetpay['sub']=='20250901') 
+elseif (isset($vetpay['role']) && $vetpay['role']=='register' && isset($vetpay['sub']) && $vetpay['sub']=='20250901') 
     $authorization = true; 
 // -- ----------------------------------------------------
 if ($authorization) 
