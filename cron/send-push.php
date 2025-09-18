@@ -67,10 +67,10 @@ if ($authorization)
                     $vetapi = json_decode($resapi, true);
                     
                     //verifica se o retorno deu "ok"
-                    //$retorno = json_decode($vetapi['data']);
-                    print_r($vetapi['data']); exit;
-                    if ($vetapi['success']) {
-                        $return = ["success" => true, "response" => $vetapi ];
+                    $retorno = $vetapi['data'];
+                    if ($retorno['status'] == 'ok') {
+
+                        $idx = $retorno['id']; 
 
                         //cria objeto para atualizar os dados do usuario
                         $objusu = new Stv_usuarios_online();
@@ -88,7 +88,8 @@ if ($authorization)
                         // }
                     }
                     else {
-                        $return = ["success" => false, "response" => 'Falha de envio com o Expo'];
+                        $msg = $retorno['details']['error'];
+                        $return = ["success" => false, "response" => 'Falha  Expo: '.$msg];
                     }
                 }
             }
