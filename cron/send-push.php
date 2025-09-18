@@ -62,9 +62,11 @@ if ($authorization)
                     $itnenv['badge'] = 1;
                     $jsnenv[] = $itnenv;
                     $body = json_encode($jsnenv);
+                    print_r($body); exit;
                     $head = array('Content-Type: application/json','Content-Length: '.strlen($body));
                     $resapi = $api->get($body, $head); 
                     $vetapi = json_decode($resapi, true);
+                    
                     //teste de retorno
                     $return = ["success" => true, "response" => $vetapi ];
 
