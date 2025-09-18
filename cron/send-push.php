@@ -67,7 +67,6 @@ if ($authorization)
                     $vetapi = json_decode($resapi, true);
                     
                     //teste de retorno
-                    echo '<pre>';
                     print_r($body);
                     $return = ["success" => true, "response" => $resapi ];
 
