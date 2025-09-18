@@ -66,6 +66,10 @@ if ($authorization)
         break;
     }
 }
+else 
+{
+    $return = ["success" => false, "response" => "Falha de autorizacao - JWT"];
+}
 
 header('Content-Type: application/json');
 echo json_encode($return);
