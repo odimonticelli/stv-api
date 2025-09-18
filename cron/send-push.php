@@ -90,6 +90,5 @@ if ($authorization)
 }
 
 header('Content-Type: application/json');
-//echo json_encode($return);
-echo $return;
+echo json_encode($return);
 ?>
