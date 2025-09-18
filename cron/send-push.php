@@ -68,7 +68,7 @@ if ($authorization)
                     
                     //verifica se o retorno deu "ok"
                     //$retorno = json_decode($vetapi['data']);
-                    print_r($retorno); exit;
+                    print_r($vetapi['data']); exit;
                     if ($vetapi['success']) {
                         $return = ["success" => true, "response" => $vetapi ];
 
