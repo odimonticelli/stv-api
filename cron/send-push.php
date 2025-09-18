@@ -67,7 +67,7 @@ if ($authorization)
                     $vetapi = json_decode($resapi, true);
                     
                     //verifica se o retorno deu "ok"
-                    $retorno = $vetapi['data'];
+                    $retorno = $vetapi['data'][0];
                     if ($retorno['status'] == 'ok') {
 
                         $idx = $retorno['id']; 
