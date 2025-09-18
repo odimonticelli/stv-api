@@ -59,7 +59,6 @@ if ($authorization)
                     $itnenv['to'] = $exp;
                     $itnenv['title'] = $tit;
                     $itnenv['body'] = "$cam - $txt";
-                    $itnenv['badge'] = 1;
                     $jsnenv[] = $itnenv;
                     $body = json_encode($jsnenv);
                     $head = array('Content-Type: application/json','Content-Length: '.strlen($body));
