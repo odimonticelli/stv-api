@@ -59,6 +59,7 @@ if ($authorization)
                     $itnenv['to'] = $exp;
                     $itnenv['title'] = $tit;
                     $itnenv['body'] = "$cam - $txt";
+                    $itnenv['data'] = array('type'=>'message');
                     $jsnenv[] = $itnenv;
                     $body = json_encode($jsnenv);
                     $head = array('Content-Type: application/json','Content-Length: '.strlen($body));
@@ -66,6 +67,8 @@ if ($authorization)
                     $vetapi = json_decode($resapi, true);
                     
                     //teste de retorno
+                    echo '<pre>';
+                    print_r($body);
                     $return = ["success" => true, "response" => $resapi ];
 
                     //cria objeto para atualizar os dados do usuario
